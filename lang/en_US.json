@@ -94,6 +94,13 @@
   },
   "update": {
     "title": "Update Available",
-    "found_message": "A new version {version} is available.\n\nChangelog:\n{changelog}\n\nUpdate now?"
+    "found_message": "A new version {version} is available.\n\nChangelog:\n{changelog}\n\nUpdate now?",
+    "progress_title": "Updating",
+    "downloading": "Downloading the new version...",
+    "failed_title": "Update Failed",
+    "download_failed": "Download failed: {error}",
+    "apply_failed": "Failed to apply the update: {error}",
+    "completed_title": "SkiHide",
+    "completed_manual_open": "Update completed. Please open SkiHide manually."
   }
 }

@@ -94,6 +94,13 @@
   },
   "update": {
     "title": "發現更新",
-    "found_message": "發現新版本 {version}\n\n更新內容：\n{changelog}\n\n是否立即更新？"
+    "found_message": "發現新版本 {version}\n\n更新內容：\n{changelog}\n\n是否立即更新？",
+    "progress_title": "正在更新",
+    "downloading": "正在下載新版本...",
+    "failed_title": "更新失敗",
+    "download_failed": "下載失敗：{error}",
+    "apply_failed": "套用更新時發生錯誤：{error}",
+    "completed_title": "SkiHide",
+    "completed_manual_open": "更新已完成，請手動開啟 SkiHide。"
   }
 }
