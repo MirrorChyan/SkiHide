@@ -1388,21 +1388,38 @@ class SkiHideApp:
                 pass
             os._exit(1)
 
-    # -------- updates (kept same endpoints) --------
+    # -------- updates --------
     def check_for_updates(self):
         try:
-            update_url = "https://flvsrttb.cn-nb1.rainapp.top/v1"
-            response = requests.get(update_url, timeout=5)
+            # Development endpoint only. Replace with the production domain before release.
+            update_url = "https://update.skihide.xyz/api"
+            response = requests.get(
+                update_url,
+                params={"lang": self.language},
+                timeout=5
+            )
             response.raise_for_status()
             data = response.json()
             if int(data.get('build', 0)) > self.current_build:
-                self.show_update_dialog(data)
+                self.root.after(0, lambda: self.show_update_dialog(data))
         except Exception:
             logger.warning("更新检查失败")
 
     def show_update_dialog(self, update_info):
-        new_version = update_info["version"]
-        changelog = update_info.get("changelog", "")
+        new_version = update_info.get("version", "")
+        changelog = update_info.get("update_log") or update_info.get("changelog", "")
+
+        download_options = update_info.get("download", {})
+        download_url = update_info.get("download_url")
+        if not download_url and isinstance(download_options, dict):
+            for _, info in download_options.items():
+                candidate_url = info.get("url")
+                if candidate_url:
+                    download_url = candidate_url
+                    break
+
+        if not download_url:
+            return
 
         msg = t(
             "update.found_message",
@@ -1414,7 +1431,7 @@ class SkiHideApp:
                 t("update.title"),
                 msg
         ):
-            self.start_download(update_info["download_url"])
+            self.start_download(download_url)
 
     def start_download(self, url):
         self.update_window = tk.Toplevel(self.root)
